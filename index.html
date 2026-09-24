@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>내 홈페이지</title>
@@ -7,15 +9,277 @@
 
 <body>
 
-    <h1>데이터계산과학전공</h1>
+```
+<h1>내 홈페이지</h1>
 
-    <p>고려대학교 응용수리과학부</p>
+<!-- 처음 화면 -->
+<div id="home">
+    <button onclick="showStudentManagement()">학생 관리</button>
+</div>
 
-    <hr>
 
-    <h2>공지사항</h2>
+<!-- 학생 관리 -->
+<div id="studentManagement" style="display: none;">
 
-    <p>2026학년도 2학기 안내입니다.</p>
+    <h2>학생 관리</h2>
+
+    <button onclick="showGrade('middle1')">중1</button>
+    <button onclick="showGrade('middle2')">중2</button>
+    <button onclick="showGrade('middle3')">중3</button>
+    <button onclick="showGrade('high1')">고1</button>
+    <button onclick="showGrade('high2')">고2</button>
+    <button onclick="showGrade('high3')">고3</button>
+
+</div>
+
+
+<!-- 중1 -->
+<div id="middle1" style="display: none;">
+    <h2>중1 학생</h2>
+
+    <button onclick="showStudent('김민수')">김민수</button>
+    <button onclick="showStudent('이서준')">이서준</button>
+    <button onclick="showStudent('박지훈')">박지훈</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 중2 -->
+<div id="middle2" style="display: none;">
+    <h2>중2 학생</h2>
+
+    <button onclick="showStudent('이은재')">이은재</button>
+    <button onclick="showStudent('김나현')">김나현</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 중3 -->
+<div id="middle3" style="display: none;">
+    <h2>중3 학생</h2>
+
+    <button onclick="showStudent('권아현')">권아현</button>
+    <button onclick="showStudent('최예진')">최예진</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 고1 -->
+<div id="high1" style="display: none;">
+    <h2>고1 학생</h2>
+
+    <button onclick="showStudent('현은지')">현은지</button>
+    <button onclick="showStudent('최다원')">최다원</button>
+    <button onclick="showStudent('정호정')">정호정</button>
+    <button onclick="showStudent('곽혜별')">곽혜별</button>
+    <button onclick="showStudent('신규리')">신규리</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 고2 -->
+<div id="high2" style="display: none;">
+    <h2>고2 학생</h2>
+
+    <button onclick="showStudent('김원준')">김원준</button>
+    <button onclick="showStudent('이규민')">이규민</button>
+    <button onclick="showStudent('윤호집')">윤호집</button>
+    <button onclick="showStudent('김태훈')">김태훈</button>
+    <button onclick="showStudent('황주환')">황주환</button>
+    <button onclick="showStudent('박지후')">박지후</button>
+    <button onclick="showStudent('손우빈')">손우빈</button>
+    <button onclick="showStudent('강준수')">강준수</button>
+    <button onclick="showStudent('조연우')">조연우</button>
+    <button onclick="showStudent('윤호수')">윤호수</button>
+    <button onclick="showStudent('이지우')">이지우</button>
+    <button onclick="showStudent('이준섭')">이준섭</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 고3 -->
+<div id="high3" style="display: none;">
+    <h2>고3 학생</h2>
+
+    <button onclick="showStudent('홍지아')">홍지아</button>
+
+    <br><br>
+    <button onclick="backToGrades()">← 학년 선택</button>
+</div>
+
+
+<!-- 학생 정보 -->
+<div id="studentInfo" style="display: none;">
+
+    <h2 id="studentName"></h2>
+
+    <p>학생 메모</p>
+
+    <textarea
+        id="studentMemo"
+        rows="10"
+        cols="50"
+        placeholder="학생에 대한 메모를 입력하세요."
+    ></textarea>
+
+    <br><br>
+
+    <button onclick="saveMemo()">저장</button>
+
+    <button onclick="backToStudentList()">← 학생 목록</button>
+
+</div>
+
+
+<!-- JavaScript -->
+<script>
+
+    let currentStudent = "";
+
+
+    function hideAll() {
+
+        document.getElementById("home").style.display = "none";
+
+        document.getElementById("studentManagement").style.display = "none";
+
+        document.getElementById("middle1").style.display = "none";
+        document.getElementById("middle2").style.display = "none";
+        document.getElementById("middle3").style.display = "none";
+
+        document.getElementById("high1").style.display = "none";
+        document.getElementById("high2").style.display = "none";
+        document.getElementById("high3").style.display = "none";
+
+        document.getElementById("studentInfo").style.display = "none";
+    }
+
+
+    function showStudentManagement() {
+
+        hideAll();
+
+        document.getElementById("studentManagement").style.display = "block";
+    }
+
+
+    function showGrade(grade) {
+
+        hideAll();
+
+        document.getElementById(grade).style.display = "block";
+    }
+
+
+    function backToGrades() {
+
+        hideAll();
+
+        document.getElementById("studentManagement").style.display = "block";
+    }
+
+
+    function showStudent(name) {
+
+        currentStudent = name;
+
+        hideAll();
+
+        document.getElementById("studentName").innerText = name;
+
+        let savedMemo = localStorage.getItem("memo_" + name);
+
+        if (savedMemo !== null) {
+            document.getElementById("studentMemo").value = savedMemo;
+        } else {
+            document.getElementById("studentMemo").value = "";
+        }
+
+        document.getElementById("studentInfo").style.display = "block";
+    }
+
+
+    function saveMemo() {
+
+        let memo = document.getElementById("studentMemo").value;
+
+        localStorage.setItem("memo_" + currentStudent, memo);
+
+        alert(currentStudent + " 학생의 메모가 저장되었습니다.");
+    }
+
+
+    function backToStudentList() {
+
+        hideAll();
+
+        if (
+            currentStudent === "김민수" ||
+            currentStudent === "이서준" ||
+            currentStudent === "박지훈"
+        ) {
+            showGrade("middle1");
+        }
+
+        else if (
+            currentStudent === "이은재" ||
+            currentStudent === "김나현"
+        ) {
+            showGrade("middle2");
+        }
+
+        else if (
+            currentStudent === "권아현" ||
+            currentStudent === "최예진"
+        ) {
+            showGrade("middle3");
+        }
+
+        else if (
+            currentStudent === "현은지" ||
+            currentStudent === "최다원" ||
+            currentStudent === "정호정" ||
+            currentStudent === "곽혜별" ||
+            currentStudent === "신규리"
+        ) {
+            showGrade("high1");
+        }
+
+        else if (
+            currentStudent === "김원준" ||
+            currentStudent === "이규민" ||
+            currentStudent === "윤호집" ||
+            currentStudent === "김태훈" ||
+            currentStudent === "황주환" ||
+            currentStudent === "박지후" ||
+            currentStudent === "손우빈" ||
+            currentStudent === "강준수" ||
+            currentStudent === "조연우" ||
+            currentStudent === "윤호수" ||
+            currentStudent === "이지우" ||
+            currentStudent === "이준섭"
+        ) {
+            showGrade("high2");
+        }
+
+        else if (currentStudent === "홍지아") {
+            showGrade("high3");
+        }
+    }
+
+</script>
+```
 
 </body>
+
 </html>
